@@ -35,7 +35,9 @@ namespace AWSServerlessCoreApp
             Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", "AWS:SecretKey");
             Environment.SetEnvironmentVariable("AWS_REGION", "AWS:Region");
             services.AddAWSService<IAmazonDynamoDB>();
-            services.AddSingleton<ICreateTable, CreateTechnologiesTable>();
+            //services.AddSingleton<ICreateTable, CreateTechnologiesTable>();
+            //services.AddSingleton<ICreateTable, CreateRequirementsTable>();
+            //services.AddSingleton<ICreateTable, CreateTrainingProgramsTable>();
             services.AddSingleton<PutTechnologiesItem>();
             services.AddSingleton<PutRequirementsItem>();
             services.AddSingleton<PutTrainingProgramItem>();

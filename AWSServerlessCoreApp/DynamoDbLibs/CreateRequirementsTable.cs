@@ -36,7 +36,7 @@ namespace AWSServerlessCoreApp.DynamoDbLibs
                 {
                     new AttributeDefinition
                     {
-                        AttributeName = "Id",
+                        AttributeName = "ProgramId",
                         AttributeType = "N"
                     },
                     new AttributeDefinition
@@ -49,7 +49,7 @@ namespace AWSServerlessCoreApp.DynamoDbLibs
                 {
                     new KeySchemaElement
                     {
-                        AttributeName = "Id",
+                        AttributeName = "ProgramId",
                         KeyType= "Hash" // partitional key
                     },
                     new KeySchemaElement

@@ -19,25 +19,47 @@ namespace AWSServerlessCoreApp.Controllers
 
         public IActionResult Index()
        {
-            var technologies = _dynamoClient.ScanAsync(new ScanRequest { TableName = "Technologies" })
-                .Result.Items.Select(MapTechnology).ToList();
-            var requirements = _dynamoClient.ScanAsync(new ScanRequest { TableName = "Requirements" })
-                .Result.Items.Select(MapRequirements).ToList();
-            var trainingProgram = _dynamoClient.ScanAsync(new ScanRequest { TableName = "TrainingPrograms" })
-                .Result.Items.Select(MapTrainingProgram).ToList()[0];
 
-            trainingProgram.Technologyies = technologies;
-            trainingProgram.Requirements = requirements;
+            List<TrainingProgram> trainingPrograms = _dynamoClient.ScanAsync(new ScanRequest { TableName = "TrainingPrograms" })
+                .Result.Items.Select(MapTrainingProgram).ToList();
 
-            return View(new List<TrainingProgram> { trainingProgram });
+            foreach (TrainingProgram program in trainingPrograms)
+            {
+                program.Technologyies = _dynamoClient.ScanAsync(
+                    new ScanRequest
+                    {
+                        TableName = "Technologies",
+                        ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+                    {
+                        {":v_ProgramId", new AttributeValue{N = program.Id.ToString()} }
+                    },
+                        FilterExpression = "ProgramId = :v_ProgramId",
+                        ProjectionExpression = "ProgramId, TechnologyName"
+                    }
+                ).Result.Items.Select(MapTechnology).ToList();
+                program.Requirements = _dynamoClient.ScanAsync(
+                    new ScanRequest
+                    {
+                        TableName = "Requirements",
+                        ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+                    {
+                        {":v_ProgramId", new AttributeValue{N = program.Id.ToString()} }
+                    },
+                        FilterExpression = "ProgramId = :v_ProgramId",
+                        ProjectionExpression = "ProgramId, Description"
+                    }
+                ).Result.Items.Select(MapRequirements).ToList();
+            }
+
+            return View(trainingPrograms);
         }
 
         private Technology MapTechnology(Dictionary<string, AttributeValue> result)
         {
             return new Technology
             {
-                Id = Convert.ToInt32(result["Id"].N),
-                Name = result["Name"].S
+                ProgramId = Convert.ToInt32(result["ProgramId"].N),
+                TechnologyName = result["TechnologyName"].S
             };
         }
 
@@ -45,7 +67,7 @@ namespace AWSServerlessCoreApp.Controllers
         {
             return new Requirement
             {
-                Id = Convert.ToInt32(result["Id"].N),
+                ProgramId = Convert.ToInt32(result["ProgramId"].N),
                 Description = result["Description"].S
             };
         }

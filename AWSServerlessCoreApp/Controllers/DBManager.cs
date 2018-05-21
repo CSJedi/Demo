@@ -9,14 +9,14 @@ namespace AWSServerlessCoreApp.Controllers
     [Route("api/DBManager")]
     public class DBManager :Controller
     {
-        private readonly ICreateTable _createTable;
+        //private readonly ICreateTable _createTable;
         private readonly PutTechnologiesItem _putTechnologiesItem;
         private readonly PutRequirementsItem _putRequirementsItem;
         private readonly PutTrainingProgramItem _putTrainingProgramItem;
         private readonly GetTecnologiesItem _getTecnologiesItem;
         private readonly GetRequirementsItem _getRequirementsItem;
         private readonly GetTrainingProgramsItem _getTrainingProgramsItem;
-        public DBManager(ICreateTable createTable, 
+        public DBManager(//ICreateTable createTable, 
             PutTechnologiesItem putTechnologiesItem,
             PutRequirementsItem putRequirementsItem,
             PutTrainingProgramItem putTrainingProgramItem,
@@ -24,7 +24,7 @@ namespace AWSServerlessCoreApp.Controllers
             GetRequirementsItem getRequirementsItem,
             GetTrainingProgramsItem getTrainingProgramsItem)
         {
-            _createTable = createTable;
+           // _createTable = createTable;
             _putTechnologiesItem = putTechnologiesItem;
             _putRequirementsItem = putRequirementsItem;
             _putTrainingProgramItem = putTrainingProgramItem;
@@ -33,24 +33,24 @@ namespace AWSServerlessCoreApp.Controllers
             _getRequirementsItem = getRequirementsItem;
         }
 
-        [Route("createTable")]
-        public IActionResult CreateDynamoDbTable()
-        {
-            _createTable.CreateDynamoDbTable();
-            return Ok();
-        }
+        //[Route("createTable")]
+        //public IActionResult CreateDynamoDbTable()
+        //{
+        //    _createTable.CreateDynamoDbTable();
+        //    return Ok();
+        //}
 
         [Route("putTechnologiesItem")]
-        public IActionResult PutTechnologiesItem([FromQuery] int id, string name)
+        public IActionResult PutTechnologiesItem([FromQuery] int programId, string name)
         {
-            _putTechnologiesItem.AddNewEntry(id, name);
+            _putTechnologiesItem.AddNewEntry(programId, name);
             return Ok();
         }
 
         [Route("putRequirementsItem")]
-        public IActionResult PutRequirementsItem([FromQuery] int id, string description)
+        public IActionResult PutRequirementsItem([FromQuery] int programId, string description)
         {
-            _putRequirementsItem.AddNewEntry(id, description);
+            _putRequirementsItem.AddNewEntry(programId, description);
             return Ok();
         }
 
@@ -62,16 +62,16 @@ namespace AWSServerlessCoreApp.Controllers
         }
 
         [Route("getTechnologiesItems")]
-        public async Task<IActionResult> GetTecnologiesItems([FromQuery] int? id)
+        public async Task<IActionResult> GetTecnologiesItems([FromQuery] int? programId)
         {
-            var response = await _getTecnologiesItem.GetItems(id);
+            var response = await _getTecnologiesItem.GetItems(programId);
             return Ok(response);
         }
 
         [Route("getRequirementsItems")]
-        public async Task<IActionResult> GetRequirementsItems([FromQuery] int? id)
+        public async Task<IActionResult> GetRequirementsItems([FromQuery] int? programId)
         {
-            var response = await _getRequirementsItem.GetItems(id);
+            var response = await _getRequirementsItem.GetItems(programId);
             return Ok(response);
         }
 

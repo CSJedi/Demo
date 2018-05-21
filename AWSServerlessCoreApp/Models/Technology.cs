@@ -3,7 +3,7 @@ namespace AWSServerlessCoreApp.Models
 {
     public class Technology
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int ProgramId { get; set; }
+        public string TechnologyName { get; set; }
     }
 }

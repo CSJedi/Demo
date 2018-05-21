@@ -28,8 +28,8 @@ namespace AWSServerlessCoreApp.DynamoDbLibs
         {
             return new Technology
             {
-                Id = Convert.ToInt32(result["Id"].N),
-                Name = result["Name"].S
+                ProgramId = Convert.ToInt32(result["ProgramId"].N),
+                TechnologyName = result["TechnologyName"].S
             };
         }
 
@@ -53,10 +53,10 @@ namespace AWSServerlessCoreApp.DynamoDbLibs
                 TableName = "Technologies",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>
                 {
-                    {":v_id", new AttributeValue{N = id.ToString()} }
+                    {":v_ProgramId", new AttributeValue{N = id.ToString()} }
                 },
-                FilterExpression = "Id = :v_id",
-                ProjectionExpression = "Id, Name"
+                FilterExpression = "ProgramId = :v_ProgramId",
+                ProjectionExpression = "ProgramId, TechnologyName"
             };
         }
     }

@@ -28,7 +28,7 @@ namespace AWSServerlessCoreApp.DynamoDbLibs
         {
             return new Requirement
             {
-                Id = Convert.ToInt32(result["Id"].N),
+                ProgramId = Convert.ToInt32(result["ProgramId"].N),
                 Description = result["Description"].S
             };
         }
@@ -53,10 +53,10 @@ namespace AWSServerlessCoreApp.DynamoDbLibs
                 TableName = "Requirements",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>
                 {
-                    {":v_id", new AttributeValue{N = id.ToString()} }
+                    {":v_ProgramId", new AttributeValue{N = id.ToString()} }
                 },
-                FilterExpression = "Id = :v_id",
-                ProjectionExpression = "Id, Description"
+                FilterExpression = "ProgramId = :v_ProgramId",
+                ProjectionExpression = "ProgramId, Description"
             };
         }
     }

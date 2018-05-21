@@ -13,7 +13,7 @@
     "s3-prefix"     : "AWSServerlessCoreApp/",
     "template"      : "serverless.template",
     "template-parameters" : "",
-    "s3-bucket"           : "appbucket3s",
-    "stack-name"          : "appbucket3s",
+    "s3-bucket"           : "appbuckets3",
+    "stack-name"          : "appbuckets3",
     "stack-wait"          : false
 }

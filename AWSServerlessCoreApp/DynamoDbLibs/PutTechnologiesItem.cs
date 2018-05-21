@@ -24,8 +24,8 @@ namespace AWSServerlessCoreApp.DynamoDbLibs
         {
             var item = new Dictionary<string, AttributeValue>
             {
-                {"Id", new AttributeValue{N = id.ToString()} },
-                {"Name", new AttributeValue{S = name} }
+                {"ProgramId", new AttributeValue{N = id.ToString()} },
+                {"TechnologyName", new AttributeValue{S = name} }
             };
             return new PutItemRequest
             {
