@@ -24,7 +24,7 @@ namespace AWSServerlessCoreApp.Controllers
             GetRequirementsItem getRequirementsItem,
             GetTrainingProgramsItem getTrainingProgramsItem)
         {
-           // _createTable = createTable;
+            //_createTable = createTable;
             _putTechnologiesItem = putTechnologiesItem;
             _putRequirementsItem = putRequirementsItem;
             _putTrainingProgramItem = putTrainingProgramItem;
