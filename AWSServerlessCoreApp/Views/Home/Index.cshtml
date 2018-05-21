@@ -1,23 +1,22 @@
-﻿@page
-@model IndexModel
+﻿@model IEnumerable<AWSServerlessCoreApp.Models.TrainingProgram>
 @{
     ViewData["Title"] = "Home page";
 }
 <header class="masthead text-center text-white d-flex">
-<div class="container my-auto">
-    <div class="row">
-        <div class="col-lg-10 mx-auto">
-            <h1 class="text-uppercase">
-                <strong>Additional information about training program</strong>
-            </h1>
-            <hr>
-        </div>
-        <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5"></p>
-            <a class="btn btn-primary btn-xl sr-button js-scroll-trigger" href="#about">Find Out More</a>
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h1 class="text-uppercase">
+                    <strong>Additional information about training program</strong>
+                </h1>
+                <hr>
+            </div>
+            <div class="col-lg-8 mx-auto">
+                <p class="text-faded mb-5"></p>
+                <a class="btn btn-primary btn-xl sr-button js-scroll-trigger" href="#about">Find Out More</a>
+            </div>
         </div>
     </div>
-</div>
 </header>
 <section class="bg-primary" id="about">
     <div class="container">
@@ -32,30 +31,32 @@
         </div>
     </div>
 </section>
-<section id="requirements">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Requirements for candidates:</h2>
-                <hr class="my-4">
+@foreach (var trainingProgram in Model)
+{
+    <section id="requirements">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">@trainingProgram.Title training program</h2>
+                    <h2 class="section-heading">Requirements for candidates:</h2>
+                    <hr class="my-4">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 text-left">
-                <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
-                <h4 class="mb-3">students of the last year and graduates of higher educational institutions of Ukraine (in directions: software engineering, computer science, mathematics, etc.);</h4>
-            </div>
+
+        <div class="container">
+             @foreach (var requirement in @trainingProgram.Requirements)
+             {
+                 <div class="row">
+                    <div class="col-lg-12 col-md-12 text-left">
+                        <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
+                        <h4 class="mb-3"> @requirement.Description</h4>
+                    </div>
+                </div>
+             }
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 text-left">
-                <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
-                <h4 class="mb-3">technical english</h4>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+}
 <section class="p-0" id="photos">
     <div class="container-fluid p-0">
         <div class="row no-gutters popup-gallery">
@@ -134,23 +135,26 @@
         </div>
     </div>
 </section>
-<section class="bg-primary" id="trainingProgram">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="section-heading text-white">Training program: Full-stack web development</h2>
-                <h3 class="text-faded mb-3">Full-stack web development</h3>
-                <hr class="light my-4">
-                <h2 class="section-heading text-white">Details:</h2>
-                <h3 class="text-faded mb-3">Databases express-course</h3>
-                <h3 class="text-faded mb-3">HTML/CSS/Javascript</h3>
-                <h3 class="text-faded mb-3">Web UI client-side development</h3>
-                <h3 class="text-faded mb-3">Server-side development</h3>
-                <a class="btn btn-light btn-xl sr-button js-scroll-trigger" href="#contact">Get Started!</a>
+@foreach (var trainingProgram in Model)
+{
+    <section class="bg-primary" id="trainingProgram">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading text-white">Training program: </h2>
+                    <h3 class="text-faded mb-3">@trainingProgram.Title</h3>
+                    <hr class="light my-4">
+                    <h2 class="section-heading text-white">Details:</h2>
+                    @foreach (var technology in @trainingProgram.Technologyies)
+                    {
+                        <h3 class="text-faded mb-3">@technology.Name</h3>
+                    }
+                    <a class="btn btn-light btn-xl sr-button js-scroll-trigger" href="#contact">Get Started!</a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
 <section id="contact">
     <div class="container">
         <div class="row">
